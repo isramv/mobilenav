@@ -14,7 +14,10 @@ admin/config/user-interface/mobile-nav
 ```
 Then you have to enable and add the following blocks
 
-1.- Mobile Navigation Toggler > Which creates the classic "Burger icon" and is the activator of the menu.
-2.- Mobile Navigation Menu > Which is the navigation menu itself.
+**Mobile Navigation Toggler** 
+> Which creates the classic "Burger icon" and is the activator of the menu.
+
+**Mobile Navigation Menu** 
+> Which is the navigation menu itself.
 
 **Remember to configure the title to <none> in each of the blocks**
