@@ -1,7 +1,10 @@
 # mobilenav
 Yet another mobile navigation for Drupal 7
 
-With this module you will be able to have a responsive menu that is configurable from the UI. 
+With this module you will be able to have a responsive menu that is configurable from the UI.
+
+
+![](https://raw.githubusercontent.com/isramv/mobilenav/readme/recordMobileNavDrupal7.gif)
 
 
 this approach is a little different than the one you can find with [Responisve Menus](https://www.drupal.org/project/responsive_menus) because you will be able to set two different menus, for example if you need a mega menu for the desktop version, you can create a new simplified menu for the mobile version.
