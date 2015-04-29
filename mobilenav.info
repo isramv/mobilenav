@@ -1,0 +1,6 @@
+name = Mobile Navigation
+description = Yet another Mobile Navigation
+package = Responsive
+core = 7.x
+core = "7.x"
+configure = /admin/config/user-interface/mobile-nav

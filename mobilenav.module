@@ -1,0 +1,132 @@
+<?php
+/**
+ * Implements hook_menu();
+ */
+function mobilenav_menu() {
+    $items = array();
+    $items['admin/config/user-interface/mobile-nav'] = array(
+        'title' => 'Mobile Navigation settings',
+        'description' => 'Mobile Navigation settings page',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('mobilenav_admin'),
+        'access arguments' => array('administer site configuration')
+    );
+    return $items;
+}
+/**
+ * Configuration form
+ */
+function mobilenav_admin() {
+    $form = array();
+    $query = db_select('menu_custom','n');
+    $query->fields('n', array('menu_name','title'));
+    $results = $query->execute()->fetchAllKeyed(0,1);
+    $form['mobile_nav_menu'] = array(
+        '#type' => 'select',
+        '#title' => t('Menu to mobilize'),
+        '#default_value' => (variable_get('mobile_nav_menu') == null) ? 'main-menu' : variable_get('mobile_nav_menu'),
+        '#description' => t("Place the machine name of the menu you want to render."),
+        '#required' => TRUE,
+        '#options' => $results
+    );
+    $form['mobile_nav_breakpoint'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Breakpoint to activate'),
+        '#default_value' => variable_get('mobile_nav_breakpoint'),
+        '#size' => 50,
+        '#maxlength' => 50,
+        '#description' => t('Breakpoint to reset mobile navigation.'),
+        '#required' => TRUE,
+    );
+    $form['mobile_show_theme_logo'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show default theme logo'),
+        '#description' => t("Check this if you want to show the logo of your theme."),
+        '#default_value' => variable_get('mobile_show_theme_logo')
+    );
+    return system_settings_form($form);
+}
+/**
+ * Implements hook_block_info();
+ */
+function mobilenav_block_info() {
+    $blocks['mobilenavigation'] = array(
+        'info' => t('Mobile Navigation Menu'),
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+    $blocks['toggler'] = array(
+        'info' => t('Mobile Navigation Toggler'),
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+    return $blocks;
+}
+/**
+ * Implements hook_block_view();
+ */
+function mobilenav_block_view($delta = '') {
+    $block = array();
+    switch ($delta) {
+        case 'mobilenavigation':
+            $block['subject'] = t('Mobile Navigation Menu');
+            $block['content'] = _mobile_navigation();
+            break;
+        case 'toggler':
+            $string = '<a id="burger">MENU</a>';
+            $breakpoint = variable_get('mobile_nav_breakpoint');
+            $path = drupal_get_path('module','mobilenav');
+            drupal_add_js($path.'/js/mobilenav.js');
+            drupal_add_css($path.'/css/mobilenav.css');
+            drupal_add_js(array('mobilenav' => array('breakpoint' => $breakpoint)), array('type' => 'setting'));
+            $block['subject'] = t('Toggler mobile menu');
+            $block['content'] = $string;
+            break;
+    }
+    return $block;
+}
+/**
+ * Mobile navigation
+ */
+function _mobile_navigation() {
+    /*
+     * Get the logo from the current theme settings.
+     */
+    $default_theme = variable_get('theme_default', null);
+    $default_logo = theme_get_setting('logo', $default_theme);
+    $tree = menu_tree_all_data(variable_get('mobile_nav_menu'));
+    //menu_tree_add_active_path($tree);
+    $to = menu_tree_output($tree);
+    while (list($key, $value) = each($to)) {
+        if(is_numeric($key) && !empty($to[$key]['#below'])) {
+            array_push($to[$key]['#attributes']['class'],'closed');
+        } elseif (is_numeric($key) && !empty($to[$key]['#below'])) {
+            if(!in_array('expanded', $to[$key]['#attributes']['class'])) {
+                array_push($to[$key]['#attributes']['class'],'expanded');
+            }
+        }
+    }
+    $showlogo = variable_get('mobile_show_theme_logo');
+    /*if($showlogo == null) {
+        variable_set('mobile_show_theme_logo',true);
+    }*/
+    $menustring = drupal_render($to);
+    $variables = array(
+        'showlogo' => $showlogo,
+        'logo' => $default_logo,
+        'menustring' => $menustring
+    );
+    return theme('mobile-nav', $variables);
+}
+/**
+ * Implements hook_theme();
+ */
+function mobilenav_theme() {
+    return array(
+        'mobile-nav' => array(
+            'template' => 'mobile-nav'
+        ),
+        'variables' => array(
+            'logo' => '',
+            'name' => ''
+        )
+    );
+}

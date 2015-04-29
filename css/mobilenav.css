@@ -1,0 +1,107 @@
+#footer #block-mobilenav-mobilenavigation,
+#block-mobilenav-mobilenavigation {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    background: #292929;
+    width: 250px;
+    display: block;
+    overflow: hidden;
+    margin:0;
+}
+#block-mobilenav-mobilenavigation .content, 
+#footer #block-mobilenav-mobilenavigation .content {margin:0;padding: 0;}
+.oosidebar ul.menu{padding-right:20px;padding-left:20px}
+.oosidebar ul.menu a:hover{color:#00acd6!important}
+.oosidebar ul.menu li {margin:0;}
+.oosidebar .menu li{float:none;list-style:none;padding-right:0;width:240px}
+.oosidebar .menu li.first a{border-right:0;height:auto}
+.oosidebar ul.menu li a{text-decoration:none;font-size:16px;line-height:26px;font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;color:#b7b7b7}
+.oosidebar ul.menu li > a{margin-left:10px}
+.oosidebar .menu li .menu li{padding-top:5px}
+.oosidebar ul.menu li ul.menu li a{text-decoration:none;font-size:16px;line-height:26px;font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;color:#FFF!important;padding-left:10px;display:flex}
+.oosidebar ul.menu li ul.menu li a:hover{color:#00acd6!important}
+.region-content #block-mobilenav-mobilenavigation .oosidebar ul.menu li ul.menu li { padding-left: 10px}
+.region-content #block-mobilenav-mobilenavigation .oosidebar ul.menu li ul.menu li,
+#block-mobilenav-mobilenavigation .oosidebar ul.menu li ul.menu li { padding-left: 10px}
+.oosidebar ul.menu li ul.menu li.last{border-bottom:0}
+.oosidebar ul.menu li ul.menu{width: 100%;display: none}
+.oosidebar .menu li.expanded.open{border-bottom:0}
+.oosidebar ul.menu li.expanded > a{width:180px;margin-left:10px}
+.oosidebar ul.menu .toggler{float:right;width:24px;height:24px;margin-top:-24px;background-position:0 -24px;background:url(images/down_arrow.png) no-repeat;}
+.oosidebar .toggler {height:10px;width:10px;cursor:pointer }
+.oosidebar ul.menu .open .toggler{background-position:0 0}
+.oosidebar ul.menu .toggler{background:url(images/down_arrow.png) no-repeat;
+    -webkit-transform: rotate(90deg);
+}
+.mobile-navigation-menu.no-logo {padding-top: 40px}
+.oosidebar ul.menu li.expanded.closed .toggler {
+  -webkit-animation-name: goback;
+  -webkit-animation-duration:250ms;
+  -webkit-transform: rotate(90deg);
+}
+.oosidebar ul.menu li.expanded.open .toggler {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration:250ms;
+  -webkit-transform: rotate(0deg);
+}
+@-webkit-keyframes rotate {
+  from {-webkit-transform:rotate(90deg);}
+  to {  -webkit-transform:rotate(0deg);}
+}
+@-webkit-keyframes goback {
+  from {-webkit-transform:rotate(0deg);}
+  to {  -webkit-transform:rotate(90deg);}
+}
+#burger {
+    cursor: pointer;
+    background: url(images/burger.png) no-repeat;
+    display: block;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+}
+body.expand {
+    transition: transform 500ms ease;
+    transform: translateX(-250px) translateZ(0);
+    -o-transition: -webkit-transform 500ms ease;
+    -o-transform: translateX(-250px) translateZ(0);
+    -webkit-transition: -webkit-transform 500ms ease;
+    -webkit-transform: translateX(-250px) translateZ(0);
+}
+body.hide {
+    transition: transform 500ms ease;
+    transform: translateX(0) translateZ(0);
+    -o-transition: -webkit-transform 500ms ease;
+    -o-transform: translateX(0) translateZ(0);
+    -webkit-transition: -webkit-transform 500ms ease;
+    -webkit-transform: translateX(0) translateZ(0)
+}
+body {
+    display: block;
+    background: white;
+}
+.mobile-menu-image {
+    margin:10px 15px;
+}
+.mobile-menu-image img {
+    width: 50%;
+    height: auto;
+}
+/** content region reset bartik **/
+.region-content #block-mobilenav-mobilenavigation ul.menu,
+.region-content #block-mobilenav-mobilenavigation ul.menu li,
+.region-content #block-mobilenav-mobilenavigation ul.menu li ul.menu li {
+    margin:0;
+    padding: 0;
+}
+/** footer region reset bartik **/
+#footer #block-mobilenav-mobilenavigation li a {
+    padding-left: 0;
+    border: 0;
+    float: none;
+    padding:0;
+}
+#footer #block-mobilenav-mobilenavigation .oosidebar ul.menu li ul.menu li {
+    padding-left: 10px;
+}
