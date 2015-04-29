@@ -20,4 +20,8 @@ Then you have to enable and add the following blocks
 **Mobile Navigation Menu** 
 > Which is the navigation menu itself.
 
-**Remember to configure the title to <none> in each of the blocks**
+**Remember to configure the title to** 
+```
+<none>
+``` 
+**in each of the blocks**
